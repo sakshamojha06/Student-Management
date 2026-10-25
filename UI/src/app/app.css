@@ -5,3 +5,15 @@
 .navbar-brand {
   font-size: 20px;
 }
+
+.notification-popup {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: calc(100vw - 48px);
+  margin: 0;
+}

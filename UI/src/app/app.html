@@ -23,4 +23,20 @@
   </div>
 </nav>
 
+@if (notification.message(); as message) {
+  <div
+    class="alert notification-popup shadow"
+    [class.alert-success]="notification.type() === 'success'"
+    [class.alert-danger]="notification.type() === 'danger'"
+    [attr.role]="notification.type() === 'danger' ? 'alert' : 'status'">
+    <span>{{ message }}</span>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Dismiss notification"
+      (click)="notification.dismiss()">
+    </button>
+  </div>
+}
+
 <router-outlet></router-outlet>

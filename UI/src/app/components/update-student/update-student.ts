@@ -5,6 +5,7 @@ import { StudentService } from '../../services/student';
 import { CourseService } from '../../services/course';
 import { Student } from '../../models/student';
 import { Course } from '../../models/course';
+import { NotificationService } from '../../services/notification';
 
 @Component({
   selector: 'app-update-student',
@@ -18,6 +19,7 @@ export class UpdateStudent implements OnInit {
   private courseService = inject(CourseService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private notification = inject(NotificationService);
 
   studentId = 0;
 
@@ -53,7 +55,7 @@ export class UpdateStudent implements OnInit {
   updateStudent(): void {
     this.studentService.update(this.studentId, this.student).subscribe({
       next: () => {
-        alert('Student updated successfully!');
+        this.notification.show('Student updated successfully!', 'success');
         this.router.navigate(['/students']);
       },
       error: (error) => console.error(error)

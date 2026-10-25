@@ -3,6 +3,7 @@ import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { CourseService } from '../../services/course';
 import { StudentService } from '../../services/student';
+import { NotificationService } from '../../services/notification';
 import { UpdateStudent } from './update-student';
 
 describe('UpdateStudent', () => {
@@ -36,5 +37,14 @@ describe('UpdateStudent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show a success notification after updating a student', () => {
+    const notification = TestBed.inject(NotificationService);
+    const showNotification = vi.spyOn(notification, 'show');
+
+    component.updateStudent();
+
+    expect(showNotification).toHaveBeenCalledWith('Student updated successfully!', 'success');
   });
 });

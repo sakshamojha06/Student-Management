@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 import { CourseService } from '../../services/course';
 import { StudentService } from '../../services/student';
+import { NotificationService } from '../../services/notification';
 import { AddStudent } from './add-student';
 
 describe('AddStudent', () => {
@@ -17,9 +18,9 @@ describe('AddStudent', () => {
     await TestBed.configureTestingModule({
       imports: [AddStudent],
       providers: [
-        { provide: StudentService, useValue: { add: vi.fn() } },
+        { provide: StudentService, useValue: { add: vi.fn(() => of(undefined)) } },
         { provide: CourseService, useValue: { getAll: vi.fn(() => of(courses)) } },
-        provideRouter([])
+        provideRouter([{ path: 'students', children: [] }])
       ]
     }).compileComponents();
 
@@ -40,5 +41,14 @@ describe('AddStudent', () => {
     const options = Array.from(select?.options ?? []).map((option) => option.textContent?.trim());
 
     expect(options).toEqual(['Select Course', 'Angular', 'C#']);
+  });
+
+  it('should show a success notification after adding a student', () => {
+    const notification = TestBed.inject(NotificationService);
+    const showNotification = vi.spyOn(notification, 'show');
+
+    component.addStudent();
+
+    expect(showNotification).toHaveBeenCalledWith('Student added successfully!', 'success');
   });
 });

@@ -5,6 +5,7 @@ import { StudentService } from '../../services/student';
 import { CourseService } from '../../services/course';
 import { Student } from '../../models/student';
 import { Course } from '../../models/course';
+import { NotificationService } from '../../services/notification';
 
 @Component({
   selector: 'app-add-student',
@@ -18,6 +19,7 @@ export class AddStudent implements OnInit {
   private studentService = inject(StudentService);
   private courseService = inject(CourseService);
   private router = inject(Router);
+  private notification = inject(NotificationService);
 
   student: Student = {
     id: 0,
@@ -37,7 +39,7 @@ export class AddStudent implements OnInit {
   addStudent(): void {
     this.studentService.add(this.student).subscribe({
       next: () => {
-        alert('Student added successfully!');
+        this.notification.show('Student added successfully!', 'success');
         this.router.navigate(['/students']);
       },
       error: (error) => console.error(error)

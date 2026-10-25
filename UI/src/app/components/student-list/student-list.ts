@@ -4,6 +4,7 @@ import { StudentService } from '../../services/student';
 import { Student } from '../../models/student';
 import { RouterLink } from '@angular/router';
 import { CourseService } from '../../services/course';
+import { NotificationService } from '../../services/notification';
 
 @Component({
   selector: 'app-student-list',
@@ -16,9 +17,11 @@ export class StudentList implements OnInit {
 
   private studentService = inject(StudentService);
   private courseService = inject(CourseService);
+  private notification = inject(NotificationService);
 
   students = signal<Student[]>([]);
   courses = signal<Course[]>([]);
+  pendingDeleteStudentId = signal<number | null>(null);
 
   ngOnInit(): void {
     this.loadStudents();
@@ -50,15 +53,28 @@ export class StudentList implements OnInit {
   }
 
   deleteStudent(id: number): void {
-    if (confirm('Are you sure you want to delete this student?')) {
-      this.studentService.delete(id).subscribe({
-        next: () => {
-          this.loadStudents();
-        },
-        error: (error) => {
-          console.error('Error deleting student:', error);
-        }
-      });
+    this.pendingDeleteStudentId.set(id);
+  }
+
+  cancelDelete(): void {
+    this.pendingDeleteStudentId.set(null);
+  }
+
+  confirmDelete(): void {
+    const id = this.pendingDeleteStudentId();
+    if (id === null) {
+      return;
     }
+
+    this.cancelDelete();
+    this.studentService.delete(id).subscribe({
+      next: () => {
+        this.notification.show('Student deleted successfully!', 'success');
+        this.loadStudents();
+      },
+      error: (error) => {
+        console.error('Error deleting student:', error);
+      }
+    });
   }
 }
