@@ -1,0 +1,19 @@
+h2 {
+  font-weight: 600;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+  padding: 12px;
+}
+
+.btn {
+  min-width: 34px;
+}

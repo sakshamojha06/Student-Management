@@ -10,7 +10,7 @@ export class StudentService {
 
   private http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:5120/api/students';
+  private apiUrl = 'http://localhost:5120/api/Student';
 
   getAll(): Observable<Student[]> {
     return this.http.get<Student[]>(this.apiUrl);
