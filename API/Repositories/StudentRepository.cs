@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories;
 
-public class StudentRepository: IPersonRepository
+public class StudentRepository: IStudentRepository
 {
     private readonly AppDbContext _context;
 

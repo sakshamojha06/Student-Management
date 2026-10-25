@@ -2,7 +2,7 @@ using API.Models;
 
 namespace API.Repositories;
 
-public interface IPersonRepository
+public interface IStudentRepository
 {
     public Task<List<Student>> GetAll();
     public Task<Student?> GetById(int id);
