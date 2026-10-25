@@ -1,1 +1,58 @@
-<p>student-details works!</p>
+<div class="container mt-5">
+
+  <div class="card shadow-sm details-card">
+
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">
+        <i class="bi bi-person-vcard"></i>
+        Student Details
+      </h4>
+    </div>
+
+    <div class="card-body">
+
+      @if (student(); as student) {
+        <div class="text-center mb-4">
+          <i class="bi bi-person-circle profile-icon"></i>
+          <h3 class="mt-2">{{ student.name }}</h3>
+          <span class="badge bg-primary">Student ID: {{ student.id }}</span>
+        </div>
+
+        <hr>
+
+        <div class="row mb-3">
+          <div class="col-sm-4 fw-semibold">Student ID</div>
+          <div class="col-sm-8">{{ student.id }}</div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-sm-4 fw-semibold">Student Name</div>
+          <div class="col-sm-8">{{ student.name }}</div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-sm-4 fw-semibold">Course</div>
+          <div class="col-sm-8">{{ courseName() }}</div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <a
+            [routerLink]="['/update-student', student.id]"
+            class="btn btn-primary">
+            <i class="bi bi-pencil-square"></i>
+            Edit Student
+          </a>
+
+          <a routerLink="/students" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i>
+            Back
+          </a>
+        </div>
+      } @else {
+        <p class="text-center text-muted mb-0">Loading student details...</p>
+      }
+
+    </div>
+  </div>
+
+</div>

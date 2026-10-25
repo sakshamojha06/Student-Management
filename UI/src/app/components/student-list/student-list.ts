@@ -1,7 +1,9 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { Course } from '../../models/course';
 import { StudentService } from '../../services/student';
 import { Student } from '../../models/student';
 import { RouterLink } from '@angular/router';
+import { CourseService } from '../../services/course';
 
 @Component({
   selector: 'app-student-list',
@@ -13,11 +15,27 @@ import { RouterLink } from '@angular/router';
 export class StudentList implements OnInit {
 
   private studentService = inject(StudentService);
+  private courseService = inject(CourseService);
 
   students = signal<Student[]>([]);
+  courses = signal<Course[]>([]);
 
   ngOnInit(): void {
     this.loadStudents();
+    this.loadCourses();
+  }
+
+  loadCourses(): void {
+    this.courseService.getAll().subscribe({
+      next: (data) => this.courses.set(data),
+      error: (error) => {
+        console.error('Error loading courses:', error);
+      }
+    });
+  }
+
+  getCourseName(courseId: number): string {
+    return this.courses().find((course) => course.id === courseId)?.courseName ?? 'Unknown course';
   }
 
   loadStudents(): void {

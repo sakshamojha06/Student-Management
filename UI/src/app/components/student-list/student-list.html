@@ -6,7 +6,7 @@
       Students List
     </h2>
 
-    <a routerLink="add-student" class="btn btn-primary">
+    <a routerLink="/add-student" class="btn btn-primary">
       <i class="bi bi-plus-circle"></i>
       Add Student
     </a>
@@ -20,7 +20,7 @@
           <tr>
             <th>Id</th>
             <th>Student Name</th>
-            <th>Course Id</th>
+            <th>Course</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -30,17 +30,17 @@
             <tr>
               <td>{{ student.id }}</td>
               <td>{{ student.name }}</td>
-              <td>{{ student.courseId }}</td>
+              <td>{{ getCourseName(student.courseId) }}</td>
 
               <td>
                 <a
-                  [routerLink]="['student-details', student.id]"
+                  [routerLink]="['/student-details', student.id]"
                   class="btn btn-info btn-sm me-2 text-white">
                   <i class="bi bi-eye"></i>
                 </a>
 
                 <a
-                  [routerLink]="['update-student', student.id]"
+                  [routerLink]="['/update-student', student.id]"
                   class="btn btn-warning btn-sm me-2">
                   <i class="bi bi-pencil-square"></i>
                 </a>

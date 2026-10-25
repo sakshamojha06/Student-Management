@@ -1,0 +1,20 @@
+.update-card {
+  max-width: 600px;
+  margin: auto;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 18px;
+}
+
+.card-body {
+  padding: 25px;
+}
+
+.form-control,
+.form-select {
+  padding: 10px;
+}
