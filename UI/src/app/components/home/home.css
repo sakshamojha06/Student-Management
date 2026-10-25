@@ -1,0 +1,10 @@
+.card {
+  max-width: 800px;
+  margin: auto;
+  border: none;
+  border-radius: 15px;
+}
+
+h1 {
+  font-weight: 700;
+}
